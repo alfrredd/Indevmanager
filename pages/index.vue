@@ -3,21 +3,6 @@
     <div class="navbar-start">
       <NuxtLink to="/dashboard"><a class="btn btn-ghost text-xl">Indev Manager</a></NuxtLink>
     </div>
-    <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
-        <li><a>Item 1</a></li>
-        <li>
-          <details>
-            <summary>Parent</summary>
-            <ul class="p-2">
-              <li><a>Submenu 1</a></li>
-              <li><a>Submenu 2</a></li>
-            </ul>
-          </details>
-        </li>
-        <li><a>Item 3</a></li>
-      </ul>
-    </div>
     <div class="navbar-end">
       <div class="dropdown mb-1">
       <div tabindex="0" role="button" class="btn m-1">
