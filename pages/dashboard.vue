@@ -33,11 +33,17 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth';
 definePageMeta({
-  middleware: 'auth'
+  middleware: [function(to, from){
+    const authStore = useAuthStore();
+    if (!authStore.isItAuthenticated && to.path !== '/login') {
+      return navigateTo('/login')
+    }
+  },]
 })
 
-import { ref } from 'vue'
+import { ref } from 'vue';
 import Users from '~/components/users.vue';
 import Devices from '~/components/devices.vue';
 import Incidents from '~/components/incidents.vue';
