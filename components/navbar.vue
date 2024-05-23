@@ -11,24 +11,31 @@
         </div>
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a>Perfil</a></li>
-        <li><a>Ajustes</a></li>
+        <li><a @click="goToUsers">Perfil</a></li>
+        <li><a onclick="settings.showModal()">Ajustes</a></li>
         <li><a @click="logOut">Cerrar sesión</a></li>
       </ul>
       </div>
-      <div class="dropdown mb-1">
-        <div tabindex="0" role="button" class="btn m-1">
-          Tema
-          <svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg>
-        </div>
-        <ul tabindex="0" class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box">
-          <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Sistema" value="default"/></li>
-          <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Oscuro" value="dark"/></li>
-          <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Claro" value="corporate"/></li>
-        </ul>
-      </div>
     </div>
 </div>
+<dialog id="settings" class="modal modal-top sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg mb-3">Ajustes</h3>
+    <div class="flex flex-row">
+      <p class="py-4 mr-4">Tema </p>
+      <div class="join join-horizontal items-center">
+        <input type="radio" name="theme-buttons" class="btn theme-controller join-item" aria-label="Sistema" value="default"/>
+        <input type="radio" name="theme-buttons" class="btn theme-controller join-item" aria-label="Oscuro" value="dark"/>
+        <input type="radio" name="theme-buttons" class="btn theme-controller join-item" aria-label="Claro" value="corporate"/>
+      </div>
+    </div>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Cerrar</button>
+      </form>
+    </div>   
+  </div>
+</dialog>
 </template>
 
 <script setup>
@@ -37,6 +44,11 @@ import { useAuthStore } from '~/stores/auth';
 
 const router = useRouter()
 const authStore = useAuthStore()
+
+const goToUsers = () => {
+  router.push({ path: '/dashboard', query: {tab: 'users'}})
+}
+
 const logOut = () => {
   authStore.setAuthenticated(false) // Set state to not authenticated
   router.push('/login') //Send back to Login

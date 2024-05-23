@@ -33,22 +33,20 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/auth';
-definePageMeta({
-  middleware: [function(to, from){
-    const authStore = useAuthStore();
-    if (!authStore.isItAuthenticated && to.path !== '/login') {
-      return navigateTo('/login')
-    }
-  },]
-})
 
 import { ref } from 'vue';
 import Users from '~/components/users.vue';
 import Devices from '~/components/devices.vue';
 import Incidents from '~/components/incidents.vue';
 
+const route = useRoute()
+const router = useRouter()
 const activeTab = ref('devices')
+
+onMounted(() => {
+  updateTab()
+})
+
 const selectedTabComponent = computed(()=>{
  switch (activeTab.value){
   case 'devices':
@@ -63,6 +61,21 @@ const selectedTabComponent = computed(()=>{
 })
 const selectedTab = (tab: string) => {
   activeTab.value = tab
+  router.push({ path: '/dashboard', query: { tab } })
 }
+
+const updateTab = () => {
+  const tab = route.query.tab as string
+  if (tab) {
+    activeTab.value = tab
+  }
+}
+
+watch(() => 
+  route.query.tab,
+  (newTab) => {
+    updateTab()
+  }
+)
 
 </script>
