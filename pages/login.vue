@@ -22,7 +22,7 @@
   </template>
   
   <script>
-  import { useAuthStore } from '~/stores/auth';
+  import { useAuthStore } from '#imports';
   import { useRouter } from '#app';
   export default {
     setup() {
